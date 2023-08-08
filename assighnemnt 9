@@ -1,0 +1,26 @@
+<?php
+// establish database connection
+$con = mysqli_connect("localhost", "root", "");
+mysqli_select_db($con, "student_details");
+
+// check if the form is submitted
+if(isset($_POST['submit'])) {
+    // get form data
+    $rollno = $_POST['rollno'];
+    $name = $_POST['name'];
+    $dept = $_POST['dept'];
+    $year = $_POST['year'];
+    $grades = $_POST['grades'];
+
+    // prepare and execute SQL query
+    $sql = "INSERT INTO students (rollno, name, dept, year, grades) VALUES ('$rollno', '$name', '$dept', '$year', '$grades')";
+    if(mysqli_query($con, $sql)) {
+        echo "Record inserted successfully.";
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($con);
+    }
+}
+
+// close database connection
+mysqli_close($con);
+?>
